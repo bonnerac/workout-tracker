@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const path = require('path');
-const Workout = require("../models");
+const db = require("../models");
 
 
 router.get("/", (req, res) => {
@@ -16,7 +16,8 @@ router.get("/stats", (req, res) => {
 })
 
 router.put("/api/workouts:id", function (req, res) {
-    Workout.findOne({
+    console.log("Hitting Route");
+    db.Workout.update({
         where: {
             id: req.params.id
         }
@@ -25,7 +26,7 @@ router.put("/api/workouts:id", function (req, res) {
     });
 });
 router.get("/api/workouts", (req, res) => {
-    Workout.findOne({
+    db.Workout.find({
         where: {
             id: req.params.id
         }
@@ -35,7 +36,7 @@ router.get("/api/workouts", (req, res) => {
 });
 
 router.post("/api/workouts", (req, res) => {
-    Workout.updateOne({
+    db.Workout.update({
         where: {
             id: req.params.id
         }
@@ -44,11 +45,11 @@ router.post("/api/workouts", (req, res) => {
     });
 });
 router.get("api/workouts/range", (req, res) => {
-    Workout.findOne({
+    db.Workout.find({
         where: {
             range: req.params.id
         }
-    }).then(function (dbWorkout) {
+    }).then(function (Workout) {
         res.json(dbWorkout);
     });
 });
